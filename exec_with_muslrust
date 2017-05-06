@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Build static linked binary with rustmusl
+
+set -Cuex +H
+
+docker run -v $PWD:/volume -w /volume -t clux/muslrust $@

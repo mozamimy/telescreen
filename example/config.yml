@@ -1,0 +1,6 @@
+- match: 'times.+'
+  destinations:
+    - times-timeline
+- match: '.*'
+  destinations:
+    - public-timeline

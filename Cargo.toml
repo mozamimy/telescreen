@@ -1,0 +1,10 @@
+[package]
+name = "telescreen"
+version = "0.1.0"
+authors = ["mozamimy (Moza USANE) <alice@mozami.me>"]
+
+[dependencies]
+slack = "0.17.1"
+getopts = "0.2.4"
+yaml-rust = "0.3.5"
+regex = "0.2.1"
