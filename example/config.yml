@@ -1,6 +1,6 @@
-- match: 'times.+'
+- match: 'personal-.+'
   destinations:
-    - times-timeline
+    - personal-timeline
 - match: '.*'
   destinations:
     - public-timeline
