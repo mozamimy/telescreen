@@ -1,6 +1,4 @@
-extern crate slack;
-
-use slack::{Event, RtmClient};
+use slack::{Event, RtmClient, EventHandler, Message};
 use router::{Router,Rule};
 
 pub struct TelescreenHandler {
@@ -14,12 +12,12 @@ impl TelescreenHandler {
 }
 
 #[allow(unused_variables)]
-impl slack::EventHandler for TelescreenHandler {
+impl EventHandler for TelescreenHandler {
     fn on_event(&mut self, cli: &RtmClient, event: Event) {
         match event {
-            slack::Event::Message(event) => {
+            Event::Message(event) => {
                 match *event {
-                    slack::Message::Standard(message) => {
+                    Message::Standard(message) => {
                         let source_user_id = match message.user {
                             None => { println!("No user: {:?}", message.user); return },
                             Some(u) => u,
