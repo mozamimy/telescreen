@@ -9,6 +9,32 @@ impl TelescreenHandler {
     pub fn new(router: Router) -> TelescreenHandler {
         TelescreenHandler { router: router }
     }
+
+    pub fn send_message(&self, cli: &RtmClient, unwrapped_channel_name: &str, unwrapped_source_user_name: &str, source_text: &str) {
+        let rules: &Vec<Rule> = self.router.rules.as_ref();
+        for rule in rules {
+            if rule.regex.is_match(unwrapped_channel_name) {
+                let dest_channel_id = cli.start_response().channels.as_ref()
+                    .and_then(|channels| {
+                        channels.iter().find(|chan| match chan.name {
+                            None => false,
+                            Some(ref name) => name == &(rule.destination),
+                        })
+                    })
+                    .and_then(|chan| chan.id.as_ref());
+
+                let dest_channel_id_unwrap = match dest_channel_id {
+                    None => { println!("No channel: {:?}", dest_channel_id); return },
+                    Some(c) => c,
+                };
+
+                if unwrapped_channel_name != &(rule.destination) {
+                    let message = format!("{:} [ #{} ]: {:}", unwrapped_source_user_name, unwrapped_channel_name, source_text);
+                    let _ = cli.sender().send_message(&dest_channel_id_unwrap, &message);
+                }
+            }
+        }
+    }
 }
 
 #[allow(unused_variables)]
@@ -60,29 +86,7 @@ impl EventHandler for TelescreenHandler {
                             Some(c) => c,
                         };
 
-                        let rules: &Vec<Rule> = self.router.rules.as_ref();
-                        for rule in rules {
-                            if rule.regex.is_match(unwrapped_channel_name) {
-                                let dest_channel_id = cli.start_response().channels.as_ref()
-                                    .and_then(|channels| {
-                                        channels.iter().find(|chan| match chan.name {
-                                            None => false,
-                                            Some(ref name) => name == &(rule.destination),
-                                        })
-                                    })
-                                    .and_then(|chan| chan.id.as_ref());
-
-                                let dest_channel_id_unwrap = match dest_channel_id {
-                                    None => { println!("No channel: {:?}", dest_channel_id); return },
-                                    Some(c) => c,
-                                };
-
-                                if unwrapped_channel_name != &(rule.destination) {
-                                    let message = format!("{:} (#{}): {:}", unwrapped_source_user_name, unwrapped_channel_name, source_text);
-                                    let _ = cli.sender().send_message(&dest_channel_id_unwrap, &message);
-                                }
-                            }
-                        }
+                        self.send_message(cli, unwrapped_channel_name, unwrapped_source_user_name, &source_text);
                     },
                     _ => { /* noop */ },
                 }
