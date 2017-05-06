@@ -15,7 +15,6 @@ fn print_usage(program: &str, opts: getopts::Options) {
  * A hack for static building with OpenSSL and musl.
  * https://github.com/clux/muslrust/issues/5#issuecomment-244901775
  */
-#[cfg(target_os = "linux")]
 fn set_openssl_env() {
     match env::var("SSL_CERT_FILE") {
         Err(_) => env::set_var("SSL_CERT_FILE", "/etc/ssl/certs/ca-certificates.crt"),
