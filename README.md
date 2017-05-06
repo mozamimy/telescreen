@@ -17,11 +17,11 @@ This screen shot shows the behavior when you use following config.
 
 ## Quick start
 
-### Pre-built binary
+### :wrench: Pre-built binary
 
 You can download a pre-built binary from [the GitHub release page](https://github.com/mozamimy/telescreen/releases) for Linux and macOS. The binary for only Linux version is linked statically.
 
-### Build your own environment
+### :seedling: Build on your environment
 
 If you are Rust programmer, you can build your own environment,
 
@@ -46,7 +46,7 @@ $ docker pull clux/muslrust
 $ ./exec_with_muslrust cargo build --release
 ```
 
-### Create a config file
+### :page_with_curl: Create a config file
 
 Routing rules are configurable with a file formatted as YAML. The file consits an array contains hashes like `{ match: regex, destinations: [channel1, channel2, ... ] }`.
 
@@ -69,7 +69,7 @@ On the other hand, following example also sends all messages to #public-timeline
     - public-timeline
 ```
 
-### Run
+### :rocket: Run
 
 You can run telescreen like following command,
 
