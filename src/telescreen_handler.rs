@@ -1,7 +1,7 @@
 extern crate slack;
 
 use slack::{Event, RtmClient};
-use router::Router;
+use router::{Router,Rule};
 
 pub struct TelescreenHandler {
     router: Router,
@@ -62,7 +62,7 @@ impl slack::EventHandler for TelescreenHandler {
                             Some(c) => c,
                         };
 
-                        let rules = self.router.rules.clone();
+                        let rules: &Vec<Rule> = self.router.rules.as_ref();
                         for rule in rules {
                             if rule.regex.is_match(unwrapped_channel_name) {
                                 let dest_channel_id = cli.start_response().channels.as_ref()
