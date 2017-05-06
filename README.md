@@ -77,6 +77,24 @@ You can run telescreen like following command,
 $ telescreen --api-key=[API_KEY] --config=/path/to/your/config
 ```
 
+### :whale: Run with Docker
+
+The image is hosted in [Docker Hub mozamimy/telescreen](https://hub.docker.com/r/mozamimy/telescreen/).
+
+```
+$ git clone git@github.com:mozamimy/telescreen.git
+$ cd telescreen
+$ API_KEY=[API_KEY] DEST_CHANNEL=your-channel docker-compose up
+$ docker-compose down
+```
+
+You can configure through environment variables,
+
+- `API_KEY`: Slack API key of Bot integration (required)
+- `DEST_CHANNEL`: Destination channel (default: general)
+
+It behaves just collect messages and send to `DEST_CHANNEL`, simply. You should create your own config and use it in the container if you want to use more complicated config.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/mozamimy/telescreen.
