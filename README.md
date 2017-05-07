@@ -23,7 +23,13 @@ You can download a pre-built binary from [the GitHub release page](https://githu
 
 ### :seedling: Build on your environment
 
-If you are Rust programmer, you can build on your own environment,
+If you are Rust programmer, you can isntall with cargo command,
+
+```
+$ cargo install telescreen
+```
+
+or also can build manually,
 
 ```
 $ git clone git@github.com:mozamimy/telescreen.git
