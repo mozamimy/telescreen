@@ -2,6 +2,15 @@
 name = "telescreen"
 version = "0.1.0"
 authors = ["mozamimy (Moza USANE) <alice@mozami.me>"]
+description = "A slack bot to forward messages by simple routing definition."
+homepage = "https://github.com/mozamimy/telescreen"
+repository = "https://github.com/mozamimy/telescreen"
+readme = "README.md"
+keywords = ["Slack"]
+license = "MIT"
+
+[[bin]]
+name = "telescreen"
 
 [dependencies]
 slack = "0.17.1"
