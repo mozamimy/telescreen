@@ -1,19 +1,21 @@
 [package]
-name = "telescreen"
-version = "0.1.0"
-authors = ["mozamimy (Moza USANE) <alice@mozami.me>"]
+name        = "telescreen"
+version     = "0.1.0"
+authors     = ["mozamimy (Moza USANE) <alice@mozami.me>"]
 description = "A slack bot to forward messages by simple routing definition."
-homepage = "https://github.com/mozamimy/telescreen"
-repository = "https://github.com/mozamimy/telescreen"
-readme = "README.md"
-keywords = ["Slack"]
-license = "MIT"
+homepage    = "https://github.com/mozamimy/telescreen"
+repository  = "https://github.com/mozamimy/telescreen"
+readme      = "README.md"
+keywords    = ["Slack"]
+license     = "MIT"
 
 [[bin]]
 name = "telescreen"
 
 [dependencies]
-slack = "0.17.1"
-getopts = "0.2.4"
-yaml-rust = "0.3.5"
-regex = "0.2.1"
+slack      = "0.17.1"
+getopts    = "0.2.4"
+yaml-rust  = "0.3.5"
+regex      = "0.2.1"
+log        = "0.3.7"
+env_logger = "0.4.2"

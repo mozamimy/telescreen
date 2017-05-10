@@ -24,12 +24,13 @@ impl TelescreenHandler {
                     .and_then(|chan| chan.id.as_ref());
 
                 let dest_channel_id_unwrap = match dest_channel_id {
-                    None => { println!("No channel: {:?}", dest_channel_id); return },
+                    None => { warn!("No channel: {:?}", dest_channel_id); return },
                     Some(c) => c,
                 };
 
                 if unwrapped_channel_name != &(rule.destination) {
                     let message = format!("{:} [ #{} ]: {:}", unwrapped_source_user_name, unwrapped_channel_name, source_text);
+                    info!("MESSAGE: {:?}", message);
                     let _ = cli.sender().send_message(&dest_channel_id_unwrap, &message);
                 }
             }
@@ -40,20 +41,22 @@ impl TelescreenHandler {
 #[allow(unused_variables)]
 impl EventHandler for TelescreenHandler {
     fn on_event(&mut self, cli: &RtmClient, event: Event) {
+        debug!("EVENT: {:?}", event);
+
         match event {
             Event::Message(event) => {
                 match *event {
                     Message::Standard(message) => {
                         let source_user_id = match message.user {
-                            None => { println!("No user: {:?}", message.user); return },
+                            None => { warn!("No user: {:?}", message.user); return },
                             Some(u) => u,
                         };
                         let source_channel_id = match message.channel {
-                            None => { println!("No channel: {:?}", message.channel); return },
+                            None => { warn!("No channel: {:?}", message.channel); return },
                             Some(c) => c,
                         };
                         let source_text = match message.text {
-                            None => { println!("No text: {:?}", message.text); return },
+                            None => { warn!("No text: {:?}", message.text); return },
                             Some(t) => t,
                         };
 
@@ -68,7 +71,7 @@ impl EventHandler for TelescreenHandler {
                             }).and_then(|user| user.name.as_ref());
 
                         let unwrapped_source_user_name = match source_user_name {
-                            None => { println!("No user: {:?}", source_user_name); return },
+                            None => { warn!("No user: {:?}", source_user_name); return },
                             Some(t) => t,
                         };
 
@@ -82,7 +85,7 @@ impl EventHandler for TelescreenHandler {
                             .and_then(|chan| chan.name.as_ref());
 
                         let unwrapped_channel_name = match channel_name {
-                            None => { println!("No channel: {:?}", source_channel_id); return },
+                            None => { warn!("No channel: {:?}", source_channel_id); return },
                             Some(c) => c,
                         };
 
@@ -96,10 +99,10 @@ impl EventHandler for TelescreenHandler {
     }
 
     fn on_close(&mut self, cli: &RtmClient) {
-        println!("Disconnected");
+        info!("Disconnected");
     }
 
     fn on_connect(&mut self, cli: &RtmClient) {
-        println!("Connected");
+        info!("Connected");
     }
 }

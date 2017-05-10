@@ -101,6 +101,16 @@ You can configure through environment variables,
 
 It behaves just collect messages and send to `DEST_CHANNEL`, simply. You should create your own config and use it in the container if you want to use more complicated config.
 
+### :black_nib: Logging
+
+You can specify log level with `RUST_LOG` environment variable. Following keywords are available,
+
+- trace
+- debug
+- info
+- warn
+- error (default)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/mozamimy/telescreen.
