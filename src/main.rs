@@ -1,6 +1,8 @@
 extern crate telescreen;
 extern crate slack;
 extern crate getopts;
+extern crate env_logger;
+extern crate log;
 
 use telescreen::telescreen_handler::TelescreenHandler;
 use telescreen::router::Router;
@@ -27,6 +29,8 @@ fn set_openssl_env() {
 }
 
 fn main() {
+    env_logger::init().unwrap();
+
     if cfg!(target_os = "linux") {
         set_openssl_env();
     }
