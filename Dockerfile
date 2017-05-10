@@ -2,7 +2,7 @@ FROM alpine
 LABEL maintainer "mozamimy (Moza USANE) <alice@mozami.me>"
 
 ARG URL=https://github.com/mozamimy/telescreen.git
-ARG VERSION=0.1.0
+ARG VERSION=0.1.1
 ARG ENTRYKIT_VERSION=0.4.0
 
 RUN apk update
