@@ -6,6 +6,7 @@ services:
     environment:
       DEST_CHANNEL: general
       API_KEY:
+      RUST_LOG: info
     command:
       - render
       - /app/config.yml
