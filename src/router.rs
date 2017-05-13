@@ -66,3 +66,39 @@ impl Router {
         Router { rules: rules }
     }
 }
+
+#[test]
+fn test_new_with_valid_yaml() {
+    let config_path_string = String::from("test/fixture/valid_config.yml");
+    let router = Router::new(&config_path_string);
+
+    let ref first_rule = router.rules[0];
+    let ref second_rule = router.rules[1];
+    let ref third_rule = router.rules[2];
+
+    assert_eq!(router.rules.len(), 3);
+    assert_eq!(first_rule.regex.as_str(), "personal-.+");
+    assert_eq!(first_rule.destination, "personal-timeline");
+    assert_eq!(second_rule.regex.as_str(), ".*");
+    assert_eq!(second_rule.destination, "public-timeline");
+    assert_eq!(third_rule.regex.as_str(), ".*");
+    assert_eq!(third_rule.destination, "general");
+}
+
+#[test]
+#[should_panic(expected = "No `match` term in")]
+fn test_new_with_invalid_yaml_1() {
+    Router::new(&String::from("test/fixture/invalid_config_1.yml"));
+}
+
+#[test]
+#[should_panic(expected = "Failed to parse regex:")]
+fn test_new_with_invalid_yaml_2() {
+    Router::new(&String::from("test/fixture/invalid_config_2.yml"));
+}
+
+#[test]
+#[should_panic(expected = "No `destinations` term in")]
+fn test_new_with_invalid_yaml_3() {
+    Router::new(&String::from("test/fixture/invalid_config_3.yml"));
+}
