@@ -1,5 +1,7 @@
 # telescreen
 
+[![Build Status](https://travis-ci.org/mozamimy/telescreen.svg?branch=master)](https://travis-ci.org/mozamimy/telescreen)
+
 `telescreen` is a Slack bot to forward messages between channels by simple routing definition file.
 
 ![](https://raw.githubusercontent.com/mozamimy/ss/master/telescreen.gif)
