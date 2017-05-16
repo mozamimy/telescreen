@@ -36,7 +36,7 @@ impl TelescreenHandler {
                 };
 
                 if unwrapped_channel_name != &(rule.destination) {
-                    let message = format!("{:} [ <#{}> ]: {:}", unwrapped_source_user_name, source_channel_id, source_text);
+                    let message = format!("{:} [ <#{}> ]:\n{:}", unwrapped_source_user_name, source_channel_id, source_text);
                     info!("MESSAGE: {:?}", message);
                     let _ = cli.sender().send_message(&dest_channel_id_unwrap, &message);
                 }
