@@ -1,6 +1,6 @@
 [package]
 name        = "telescreen"
-version     = "0.1.2"
+version     = "0.1.3"
 authors     = ["mozamimy (Moza USANE) <alice@mozami.me>"]
 description = "A slack bot to forward messages by simple routing definition."
 homepage    = "https://github.com/mozamimy/telescreen"
