@@ -4,9 +4,9 @@ extern crate getopts;
 extern crate env_logger;
 extern crate log;
 
-use telescreen::telescreen_handler::TelescreenHandler;
-use telescreen::router::Router;
 use std::env;
+use telescreen::router::Router;
+use telescreen::telescreen_handler::TelescreenHandler;
 
 fn print_usage(program: &str, opts: getopts::Options) {
     let brief = format!("Usage: {} [options]", program);
@@ -20,11 +20,11 @@ fn print_usage(program: &str, opts: getopts::Options) {
 fn set_openssl_env() {
     match env::var("SSL_CERT_FILE") {
         Err(_) => env::set_var("SSL_CERT_FILE", "/etc/ssl/certs/ca-certificates.crt"),
-        Ok(_) => { /* noop */ },
+        Ok(_) => { /* noop */ }
     }
     match env::var("SSL_CERT_DIR") {
         Err(_) => env::set_var("SSL_CERT_DIR", "/etc/ssl/certs"),
-        Ok(_) => { /* noop */ },
+        Ok(_) => { /* noop */ }
     }
 }
 
@@ -39,13 +39,16 @@ fn main() {
     let program = args[0].clone();
     let mut opts = getopts::Options::new();
 
-    opts.optopt("a", "api-key", "Slack API key for bot integration", "API_KEY");
+    opts.optopt("a",
+                "api-key",
+                "Slack API key for bot integration",
+                "API_KEY");
     opts.optopt("c", "config", "Path to config file", "FILE");
     opts.optflag("h", "help", "Print this help menu");
 
     let matches = match opts.parse(&args[1..]) {
-        Ok(m) => { m },
-        Err(e) => { panic!(e.to_string()) },
+        Ok(m) => m,
+        Err(e) => panic!(e.to_string()),
     };
     if matches.opt_present("h") {
         print_usage(&program, opts);
@@ -56,14 +59,14 @@ fn main() {
         None => {
             print_usage(&program, opts);
             return;
-        },
+        }
     };
     let api_key = match matches.opt_str("a") {
         Some(a) => a,
         None => {
             print_usage(&program, opts);
             return;
-        },
+        }
     };
 
     let router = Router::new(&String::from(config_path_string));

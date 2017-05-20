@@ -1,10 +1,11 @@
-use std::path::Path;
-use std::fs::File;
+
+use regex::Regex;
 use std::error::Error;
+use std::fs::File;
 use std::io::prelude::*;
+use std::path::Path;
 
 use yaml_rust::YamlLoader;
-use regex::Regex;
 
 #[derive(Debug, Clone)]
 pub struct Rule {
@@ -29,7 +30,7 @@ impl Router {
         let mut yaml_string = String::new();
         match file.read_to_string(&mut yaml_string) {
             Err(why) => panic!("Clould not read {}: {}", display, Error::description(&why)),
-            Ok(_) => { /* noop */ },
+            Ok(_) => { /* noop */ }
         }
 
         let yamls = match YamlLoader::load_from_str(&yaml_string) {
@@ -58,7 +59,10 @@ impl Router {
                         None => panic!("No `destinations` term in {:?}", destination),
                         Some(d) => d,
                     };
-                    rules.push( Rule { regex: match_regex.clone(), destination: String::from(destination_string) })
+                    rules.push(Rule {
+                                   regex: match_regex.clone(),
+                                   destination: String::from(destination_string),
+                               })
                 }
             }
         }
