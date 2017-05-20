@@ -1,13 +1,15 @@
-use slack::{Event, RtmClient, EventHandler, Message};
+use slack::{Event,RtmClient,EventHandler,Message};
 use router::{Router,Rule};
+use regex::{Regex,Captures};
 
 pub struct TelescreenHandler {
     router: Router,
+    username_regex: Regex,
 }
 
 impl TelescreenHandler {
     pub fn new(router: Router) -> TelescreenHandler {
-        TelescreenHandler { router: router }
+        TelescreenHandler { router: router, username_regex: Regex::new(r"<@(.+)>").unwrap() }
     }
 
     pub fn send_message(&self, cli: &RtmClient, source_channel_id: &str, source_user_id: &str, source_text: &str) {
@@ -41,7 +43,10 @@ impl TelescreenHandler {
                 };
 
                 if unwrapped_channel_name != &(rule.destination) {
-                    let message = format!("@{:} [ <#{}> ]:\n{:}", unwrapped_user_name, source_channel_id, source_text);
+                    let replaced_source_text = self.username_regex.replace_all(source_text, |caps: &Captures| {
+                        format!("@{}", self.get_user_name_from_id(cli, &caps[1]).unwrap_or(&String::from("unknown")))
+                    });
+                    let message = format!("@{:} [ <#{}> ]:\n{:}", unwrapped_user_name, source_channel_id, replaced_source_text);
                     info!("MESSAGE: {:?}", message);
                     let _ = cli.sender().send_message(&dest_channel_id_unwrap, &message);
                 }
