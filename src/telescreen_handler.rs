@@ -1,4 +1,3 @@
-
 use regex::{Captures, Regex};
 use router::{Router, Rule};
 use slack::{Event, EventHandler, Message, RtmClient};
@@ -70,7 +69,7 @@ impl TelescreenHandler {
                                     self.get_user_name_from_id(cli, &caps[1])
                                         .unwrap_or(&String::from("unknown")))
                         });
-                    let message = format!("@{:} [ <#{}> ]:\n{:}",
+                    let message = format!("{:} [ <#{}> ]:\n{:}",
                                           unwrapped_user_name,
                                           source_channel_id,
                                           replaced_source_text);
