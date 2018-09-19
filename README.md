@@ -21,7 +21,7 @@ This screen shot shows the behavior when you use following config.
 
 ### :wrench: Pre-built binary
 
-You can download a pre-built binary from [the GitHub release page](https://github.com/mozamimy/telescreen/releases) for Linux and macOS. The binary for only Linux version is linked statically.
+You can download a pre-built binary from [the GitHub release page](https://github.com/mozamimy/telescreen/releases) for Linux and macOS. The binary for the Linux-only version is statically linked.
 
 ### :seedling: Build on your environment
 
@@ -56,9 +56,9 @@ $ ./exec_with_muslrust cargo build --release
 
 ### :page_with_curl: Create a config file
 
-Routing rules are configurable with a file formatted as YAML. The file consits an array contains hashes like `{ match: regex, destinations: [channel1, channel2, ... ] }`.
+Routing rules are configurable with a file formatted as YAML. The file consists of a map containing hashes like `{ match: regex, destinations: [channel1, channel2, ... ] }`. The `match` keyword will be used to find channels that are matched by the given regular expression.
 
-For example, following config sends all messages to #public-timeline channel.
+For example, following config sends all messages (`.*`) to the `#public-timeline` channel.
 
 ```yaml
 - match: '.*'
@@ -66,7 +66,7 @@ For example, following config sends all messages to #public-timeline channel.
     - public-timeline
 ```
 
-On the other hand, following example also sends all messages to #public-timeline channel and sends messages posted to channels that has `personal-` prefix to #personal-timeline channel.
+On the other hand, following example also sends all messages to `#public-timeline` channel and sends messages posted to channels that has `personal-` prefix to `#personal-timeline` channel.
 
 ```yaml
 - match: 'personal-.+'
